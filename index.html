@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      background: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80') center/cover no-repeat fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(20,10,5,0.4) 100%);
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    /* top label */
+    .top-badge {
+      display: inline-block;
+      background: #ff6b2b;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+
+    .hero-title span {
+      color: #ffb347;
+    }
+
+    .hero-sub {
+      color: rgba(255,255,255,0.55);
+      font-size: 13.5px;
+      margin-bottom: 28px;
+      font-weight: 300;
+    }
+
+    /* card */
+    .card {
+      background: rgba(15, 12, 10, 0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      animation: slideUp 0.6s cubic-bezier(.22,.68,0,1.2) both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ff6b2b;
+      margin-bottom: 16px;
+      margin-top: 24px;
+    }
+
+    .section-label:first-child { margin-top: 0; }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    label span.req { color: #ff6b2b; margin-left: 2px; }
+
+    input, select {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s, background0.25s;
+      -webkit-appearance: none;
+    }
+
+    input::placeholder { color: rgba(255,255,255,0.25); }
+
+    input:focus, select:focus {
+      border-color: #ff6b2b;
+      background: rgba(255,107,43,0.07);
+      box-shadow: 0 0 0 3px rgba(255,107,43,0.18);
+    }
+
+    select option { background: #1a120a; color: #fff; }
+
+    /* custom select arrow */
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '▾';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.35);
+      pointer-events: none;
+      font-size: 13px;
+    }
+
+    /* checkbox */
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 22px;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      accent-color: #ff6b2b;
+      margin-top: 2px;
+      padding: 0;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: none;
+    }
+
+    .checkbox-row input[type="checkbox"]:focus {
+      box-shadow: 0 0 0 3px rgba(255,107,43,0.25);
+    }
+
+    .checkbox-row label {
+      font-size: 12.5px;
+      text-transform: none;
+      letter-spacing: 0;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .checkbox-row label a {
+      color: #ffb347;
+      text-decoration: none;
+    }
+
+    .checkbox-row label a:hover { text-decoration: underline; }
+
+    /* submit button */
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #ff6b2b, #ffb347);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
+      box-shadow: 0 6px 24px rgba(255,107,43,0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255,107,43,0.5);
+      filter: brightness(1.08);
+    }
+
+    .btn:active { transform: translateY(0); }
+
+    /* divider */
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin: 22px 0 20px;
+    }
+
+    @media (max-width: 480px) {
+      .row { grid-template-columns: 1fr; }
+      .card { padding: 28px 20px; }
+      .hero-title { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <span class="top-badge">Registration</span>
+    <h1 class="hero-title">Create Your <span>Account</span></h1>
+    <p class="hero-sub">Fill in the details below to get started</p>
+
+    <div class="card">
+
+      <p class="section-label">Personal Info</p>
+
+      <div class="row">
+        <div class="field">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" placeholder="e.g. Arjun Singh" />
+        </div>
+        <div class="field">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="text" placeholder="dd-mm-yyyy" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Gender <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select>
+              <option value="" disabled selected>Select</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Non-binary</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Profession <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select>
+              <option value="" disabled selected>Select</option>
+              <option>Student</option>
+              <option>Developer</option>
+              <option>Designer</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Qualification <span class="req">*</span></label>
+        <input type="text" placeholder="e.g. B.Tech Computer Science" />
+      </div>
+
+      <div class="divider"></div>
+      <p class="section-label">Contact Details</p>
+
+      <div class="field">
+        <label>Email Address <span class="req">*</span></label>
+        <input type="email" placeholder="you@example.com" />
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" placeholder="+91 98765 43210" />
+        </div>
+        <div class="field">
+          <label>Password <span class="req">*</span></label>
+          <input type="password" placeholder="Min. 8 characters" />
+        </div>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="terms" />
+        <label for="terms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></label>
+      </div>
+
+      <button class="btn">Submit Registration →</button>
+
+    </div>
+  </div>
+</body>
+</html>
